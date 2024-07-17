@@ -1,44 +1,24 @@
 #!/bin/bash
+
 is_fibonacci() {
     num=$1
     a=0
     b=1
-    while [ $b -lt $num ]; do
-        temp=$b
-        b=$((a + b))
-        a=$temp
+    pos=1
+
+    while [ $b -le $num ]; do
+        if [ $b -eq $num ]; then
+            echo "$num is part of the Fibonacci sequence at position $pos."
+            return 0
+        fi
+        next=$((a + b))
+        a=$b
+        b=$next
+        ((pos++))
     done
-    [ $b -eq $num ]
+    echo "$num is not part of the Fibonacci sequence."
+    return 1
 }
 
-fibonacci_index() {
-    num=$1
-    a=0
-    b=1
-    index=1
-    while [ $b -lt $num ]; do
-        temp=$b
-        b=$((a + b))
-        a=$temp
-        index=$((index + 1))
-    done
-    if [ $b -eq $num ]; then
-        echo $index
-    else
-        echo "-1"
-    fi
-}
-
-read -p "enter num" num
-
-
-if is_fibonacci $num; then
-	index=$(fibonacci_index $num)
-	echo "the number $num is part of fibonacci he is index number $index"
-else
-     echo "the numer $num is not fibonacci"
-fi
-
-
-
-
+read -p "Enter a number: " number
+is_fibonacci "$number"
