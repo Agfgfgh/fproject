@@ -22,4 +22,4 @@ is_fibonacci() {
 
 user_input=$1
 
-is_fibonacci "$number"
+is_fibonacci "$user_input"
