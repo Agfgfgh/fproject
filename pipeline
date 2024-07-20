@@ -20,7 +20,7 @@ pipeline {
             steps {
                 script {
                     def output = sh(script: "bash fibprojeject.sh ${params.user_input}", returnStdout: true).trim()
-                    writeFile file: OUTPUT_FILE, text: "<html><body><h1 style="background-color:red;">Output final project</h1><p>${output}</p></body></html>"
+                    writeFile file: OUTPUT_FILE, text: "<html><body><h1 style="color:red;">Output final project</h1><p>${output}</p></body></html>"
                 }
             }
         }
