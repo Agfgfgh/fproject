@@ -20,5 +20,6 @@ is_fibonacci() {
     return 1
 }
 
-user_input = $1
+#user_input = $1
+read -p "Enter a number: " user_input
 is_fibonacci "$number"
