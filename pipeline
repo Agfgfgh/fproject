@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     parameters {
-        string(name: 'user_input', defaultValue: '0', description: 'A numeric parameter')
+        string(name: 'number', defaultValue: '0', description: 'A numeric parameter')
     }
 
     environment {
@@ -19,7 +19,7 @@ pipeline {
         stage('Run Shell Script') {
             steps {
                 script {
-                    def output = sh(script: "bash fibprojeject.sh ${params.user_input}", returnStdout: true).trim()
+                    def output = sh(script: "bash fibprojeject.sh ${params.number}", returnStdout: true).trim()
                     writeFile file: OUTPUT_FILE, text: "<html><body><h1>Output</h1><p>${output}</p></body></html>"
                 }
             }
@@ -28,7 +28,7 @@ pipeline {
         stage('Display Parameter') {
             steps {
                 script {
-                    currentBuild.description = "Numeric parameter is ${params.user_input}"
+                    currentBuild.description = "Numeric parameter is ${params.number}"
                 }
             }
         }
@@ -37,10 +37,10 @@ pipeline {
             steps {
                 script {
                     def description = currentBuild.description
-                    if (description.contains("${params.user_input}")) {
-                        echo "Parameter ${params.user_input} exists on the web page."
+                    if (description.contains("${params.number}")) {
+                        echo "Parameter ${params.number} exists on the web page."
                     } else {
-                        error "Parameter ${params.user_input} does not exist on the web page."
+                        error "Parameter ${params.number} does not exist on the web page."
                     }
                 }
             }
