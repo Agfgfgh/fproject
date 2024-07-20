@@ -5,16 +5,23 @@ pipeline {
         string(name: 'user_input', defaultValue: '0', description: 'A numeric parameter')
     }
 
+    environment {
+        OUTPUT_FILE = 'output.html'
+    }
+
     stages {
         stage('Clone Repository') {
             steps {
-                git 'https://github.com/Agfgfgh/fproject.git'  // Replace with your repository URL
+                git 'https://github.com/szeevi/fibvar.git'  // Replace with your repository URL
             }
         }
 
         stage('Run Shell Script') {
             steps {
-                sh "bash fibprojeject.sh ${params.user_input}"
+                script {
+                    def output = sh(script: "bash fibvar.sh ${params.user_input}", returnStdout: true).trim()
+                    writeFile file: OUTPUT_FILE, text: "<html><body><h1>Output</h1><p>${output}</p></body></html>"
+                }
             }
         }
 
@@ -37,6 +44,20 @@ pipeline {
                     }
                 }
             }
+        }
+    }
+
+    post {
+        always {
+            archiveArtifacts artifacts: OUTPUT_FILE, fingerprint: true
+            publishHTML(target: [
+                allowMissing: false,
+                alwaysLinkToLastBuild: true,
+                keepAll: true,
+                reportDir: '.',
+                reportFiles: OUTPUT_FILE,
+                reportName: 'Shell Script Output'
+            ])
         }
     }
 }
