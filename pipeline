@@ -8,13 +8,13 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git 'https://github.com/szeevi/fibvar.git'  // Replace with your repository URL
+                git 'https://github.com/Agfgfgh/fproject.git'  // Replace with your repository URL
             }
         }
 
         stage('Run Shell Script') {
             steps {
-                sh "bash fibvar.sh ${params.user_input}"
+                sh "bash fibprojeject.sh ${params.user_input}"
             }
         }
 
