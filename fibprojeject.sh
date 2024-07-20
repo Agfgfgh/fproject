@@ -20,6 +20,6 @@ is_fibonacci() {
     return 1
 }
 
-user_input = $1
+user_input=$1
 
 is_fibonacci "$number"
